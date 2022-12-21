@@ -1,20 +1,23 @@
-import express from "express";
 ///  const express = require("express");  ///
+import express from "express";
+import morgan from "morgan";
+
+import globalRouter from "./routers/globerRouter";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+
 
 const PORT = 4000;
+
 const app = express();
 
 
-const logger = (req, res, next) => {
-    console.log(`${req.method} ${req.url}`)
-    next();
-};
+/// morgan use /// 
+app.use(morgan("dev"));
 
-
-const handleHome = (req,res) => res.send("Hori");
-
-app.use(logger);
-app.get("/", handleHome);
+app.use("/", globalRouter);
+app.use("/users", userRouter);
+app.use("/videos", videoRouter);
 
 
 const handleListening = () => 
