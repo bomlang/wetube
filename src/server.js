@@ -11,9 +11,12 @@ const PORT = 4000;
 
 const app = express();
 
-
+/// pug engine /// 
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
 /// morgan use /// 
 app.use(morgan("dev"));
+
 
 app.use("/", globalRouter);
 app.use("/users", userRouter);
